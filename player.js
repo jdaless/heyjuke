@@ -4,4 +4,5 @@ angular.module('player', ['ngMaterial'])
 	$scope.artist = 'Artist';
 	$scope.album = 'Album';
 	$scope.imagePath = 'img/noart.png';
+	$scope.length = 0;
 }]);
