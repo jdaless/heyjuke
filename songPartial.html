@@ -1,0 +1,16 @@
+<div ng-controller="Song" ng-cloak>
+
+	<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+		<md-card-title>
+	 		<md-card-title-text>
+				<span class="md-headline">{{title}}</span>
+				<span class="md-subhead">On {{album}}</span>
+				<span class="md-subhead">by {{artist}}</span>
+	 		</md-card-title-text>
+	 		<md-card-title-media>
+				<img ng-src="{{imagePath}}" class="md-media-md card-media" alt="{{album}}">
+	 		</md-card-title-media>
+  		</md-card-title>
+	</md-card>
+
+</div>
