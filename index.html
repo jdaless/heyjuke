@@ -13,31 +13,43 @@
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	</head>
 
-	<body ng-app="player" ng-cloak>
+	<body ng-app="player" layout="column">
 		<md-toolbar>
-			<div class="md-toolbar-tools">
-				<md-button class="md-icon-button" aria-label="Add to Queue">
+			<div class="md-toolbar-tools" layout="row">
+				<md-button hide-gt-xs class="md-icon-button" aria-label="Add to Queue">
 					<md-icon class="material-icons">playlist_add</md-icon>
 				</md-button>
 				<h1 class="md-flex">player</h1>
 			</div>
 		</md-toolbar>
 
-		<md-content flex layout="column" layout-align="center">
-			<ng-include src="'songPartial.html'"></ng-include>
-			<ng-include src="'songPartial.html'"></ng-include>
-			<ng-include src="'songPartial.html'"></ng-include>
-			<ng-include src="'songPartial.html'"></ng-include>
-			<ng-include src="'songPartial.html'"></ng-include>
+		<md-content flex  layout="row">
+		    <md-sidenav flex
+		    	class="md-sidenav-left"
+		    	md-component-id="left"
+		    	md-is-locked-open="$mdMedia('gt-xs')">
+		    	<h1 class="md-toolbar-tools">Add Song</h1>
+		    </md-sidenav>
 
-			<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
-				<md-card-title>
-			 		<md-card-title-text>
-						<span class="md-headline">End of Queue</span>
-			 		</md-card-title-text>
-		  		</md-card-title>
-			</md-card>
+		    <md-content flex layout="column">
+				<ng-include src="'songPartial.html'"></ng-include>
 
+				<md-content flex class="main-content" layout="column">
+					<ng-include src="'songPartial.html'"></ng-include>
+					<ng-include src="'songPartial.html'"></ng-include>
+					<ng-include src="'songPartial.html'"></ng-include>
+					<ng-include src="'songPartial.html'"></ng-include>
+
+					<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+						<md-card-title>
+					 		<md-card-title-text>
+								<span class="md-headline">End of Queue</span>
+					 		</md-card-title-text>
+				  		</md-card-title>
+					</md-card>
+
+				<md-content>
+			<md-content>
 		<md-content>
 
 	</body>
