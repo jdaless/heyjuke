@@ -3,6 +3,7 @@ import json
 import socket
 import threading
 import pygame
+import time
 
 dirName = os.path.dirname(os.path.abspath(__file__))
 
@@ -10,6 +11,7 @@ class PlayerModel:
 	def __init__(self):
 		self.queue = []
 		self.currentlyPlaying = ""
+		self.playingStarted = 0
 	def pop(self):
 		self.currentlyPlaying = self.queue.pop()
 
@@ -24,11 +26,15 @@ def playQueue():
 			try:
 				pygame.mixer.music.load(dirName + '\\music\\' + model.currentlyPlaying)
 				pygame.mixer.music.play()
+				model.playingStarted = time.mktime(time.localtime())
 				while(pygame.mixer.music.get_busy()):
 					continue
 
 			except pygame.error:
 				print("Error loading file")
+		else:
+			model.currentlyPlaying = None
+
 
 def socketListener():
 	print("Network thread started...")
@@ -44,7 +50,7 @@ def socketListener():
 			if data:
 				connection.sendall(
 					bytes(
-						json.dumps([model.currentlyPlaying, list(reversed(model.queue))]), 
+						json.dumps([model.currentlyPlaying, list(reversed(model.queue)), model.playingStarted]), 
 						'utf8'))
 		finally:
 			connection.close()

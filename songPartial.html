@@ -1,15 +1,21 @@
-<div flex style="display: inline-block; flex: 1 0 auto !important;">
+<div flex style="display: inline-block; flex: 1 0 auto !important;" ng-if="x.title != null">
 	<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
 		<md-card-title>
 	 		<md-card-title-text>
 				<span class="md-headline">{{x.title}}</span>
-				<span class="md-subhead">on {{x.album}}</span>
-				<span class="md-subhead">by {{x.artist}}</span>
+				<span class="md-subhead">{{x.artist}}</span>
 	 		</md-card-title-text>
-	 		<md-card-title-media>
-				<img ng-src="{{imagePath}}" class="md-media-md card-media" alt="{{x.album}}">
-	 		</md-card-title-media>
+		 		<md-card-title-media>
+					<img ng-src="{{imagePath}}" class="md-media-md card-media" alt="{{x.album}}">
+		 		</md-card-title-media>
 			</md-card-title>
-	 	<!-- <md-progress-linear md-mode="determinate" value="{{x.length}}"></md-progress-linear> -->
+	</md-card>
+</div>
+<div flex style="display: inline-block; flex: 1 0 auto !important;" ng-if="x.title == null">
+	<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+		<md-card-title>
+	 		<md-card-title-text>
+				<span class="md-headline">Queue is Empty</span>
+	 		</md-card-title-text>
 	</md-card>
 </div>
