@@ -4,18 +4,20 @@ import socket
 import threading
 import pygame
 import time
+import spotipy
 
 dirName = os.path.dirname(os.path.abspath(__file__))
 
 class PlayerModel:
 	def __init__(self):
 		self.queue = []
-		self.currentlyPlaying = ""
+		self.currentlyPlaying = []
 		self.playingStarted = 0
 	def pop(self):
 		self.currentlyPlaying = self.queue.pop()
 
 pygame.mixer.init()
+spotify = spotipy.Spotify()
 model = PlayerModel()
 
 def playQueue():
@@ -23,15 +25,18 @@ def playQueue():
 	while(True):
 		if(len(model.queue) > 0):
 			model.pop()
-			try:
-				pygame.mixer.music.load(dirName + '\\music\\' + model.currentlyPlaying)
-				pygame.mixer.music.play()
-				model.playingStarted = time.mktime(time.localtime())
-				while(pygame.mixer.music.get_busy()):
-					continue
+			if(model.currentlyPlaying[0] == "file"):
+				try:
+					pygame.mixer.music.load(dirName + '\\music\\' + model.currentlyPlaying[1])
+					pygame.mixer.music.play()
+					model.playingStarted = time.mktime(time.localtime())
+					while(pygame.mixer.music.get_busy()):
+						continue
 
-			except pygame.error:
-				print("Error loading file")
+				except pygame.error:
+					print("Error loading file")
+			if(model.currentlyPlaying[0] == "spotify"):
+				spotify.play(model.currentlyPlaying[1])
 		else:
 			model.currentlyPlaying = None
 
@@ -76,5 +81,7 @@ while(True):
 		print(model.currentlyPlaying)
 	if(x=="library"):
 		print(os.listdir(dirName + "\\music"))
+	if(x=="spotify"):
+		model.queue.insert(0, ["spotify", "https://play.spotify.com/track/6t1FIJlZWTQfIZhsGjaulM"])
 	if(x.startswith("add")):
-		model.queue.insert(0, x[4:])
+		model.queue.insert(0, ["file", x[4:]])

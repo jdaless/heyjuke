@@ -1,4 +1,4 @@
-<div flex style="display: inline-block; flex: 1 0 auto !important;" ng-if="x.title != null">
+<div style="display: block; flex: 1 0 auto !important;" ng-if="x.title != null">
 	<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
 		<md-card-title>
 	 		<md-card-title-text>
@@ -9,9 +9,11 @@
 					<img ng-src="{{imagePath}}" class="md-media-md card-media" alt="{{x.album}}">
 		 		</md-card-title-media>
 			</md-card-title>
+
+			<md-progress-linear md-mode="determinate" value="{{progress}}" ng-if="x.nowPlaying"></md-progress-linear>
 	</md-card>
 </div>
-<div flex style="display: inline-block; flex: 1 0 auto !important;" ng-if="x.title == null">
+<div style="display: block; flex: 1 0 auto !important;" ng-if="x.title == null">
 	<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
 		<md-card-title>
 	 		<md-card-title-text>

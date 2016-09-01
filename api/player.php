@@ -12,6 +12,8 @@ class Song{
 	public $album;
 	public $albumArt;
 	public $length;
+	public $nowPlaying;
+	public $media;
 }
 
 function getData($path, $mediaSource){
@@ -38,11 +40,13 @@ $decoded = json_decode($result);
 curl_close($ch);
 $queue = array();
 $i = 0;
-foreach($decoded[1] as $path){
-	$queue[$i] = getData($path, "file");
+foreach($decoded[1] as $song){
+	$queue[$i] = getData($song[1][1], $song[0][0]);
 	$i = $i + 1;
 }
+$np = getData($decoded[0][1], $decoded[0][0]);
+$np->nowPlaying = true;
 
-echo json_encode( array(0 => getData($decoded[0], "file"), 1 => $queue, $decoded[2]), JSON_PRETTY_PRINT);
+echo json_encode( array(0 => $np, 1 => $queue, $decoded[2]), JSON_PRETTY_PRINT);
 
 ?>

@@ -24,19 +24,33 @@
 		</md-toolbar>
 
 		<md-content flex  layout="row">
-		    <md-sidenav flex
+		    <md-sidenav 
+		    	flex="33"
 		    	class="md-sidenav-left"
-		    	md-component-id="left"
-		    	md-is-locked-open="$mdMedia('gt-xs')">
-		    	<h1 class="md-toolbar-tools">Add Song</h1>
-		    	<md-button ng-click="browseFiles()">
-		    		Add From File
+		    	md-component-id="add"
+		    	md-is-locked-open="$mdMedia('gt-xs')"
+		    	layout="column"
+		    	layout-align="start start">
+		    	<md-button>
+					<md-icon class="material-icons">file_upload</md-icon>
+		    		Upload Song
 		    	</md-button>
-		    </md-sidenav>
 
-		    <md-content flex ng-controller="Queue" layout="column">
+		    	<md-button ng-click="browseFiles()">
+					<md-icon class="material-icons">memory</md-icon>
+		    		Play From Local
+		    	</md-button>
+
+		    	<md-button>
+					<md-icon class="material-icons">cloud_queue</md-icon>
+		    		Play From Web
+		    	</md-button>
+
+			</md-sidenav>
+
+		    <md-content ng-controller="Queue" layout="column" flex>
+
 				<ng-include src="'songPartial.html'" ng-repeat="x in [nowPlaying]"></ng-include>
-				<md-progress-linear md-mode="determinate" value="{{progress}}"></md-progress-linear>
 
 				<md-content flex class="main-content" layout="column">
 					

@@ -21,7 +21,7 @@ app.controller('Queue', function($scope, $http, $interval) {
 		else{
 			$scope.progress = 101;
 		}
-		if($scope.progress>100  && $scope.nowPlaying.title != null){
+		if($scope.progress>100  && $scope.nowPlaying && $scope.nowPlaying.title){
 			refreshQueue();
 		}
 	}, 100, 0, true);
@@ -29,8 +29,11 @@ app.controller('Queue', function($scope, $http, $interval) {
 
 app.controller('AddMenu', function($scope, $mdSidenav){
 	$scope.openSideNav = function (){
-		console.log('A thing happened')
-	    $mdSidenav('left').open();
-	}
+	    $mdSidenav('add').open();
+	};
+	$scope.browseFiles = function(){
+		$mdSidenav('add').close();
+		$mdSidenav('browseLocal').open();
+	};
 
 });
