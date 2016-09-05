@@ -31,22 +31,54 @@
 		    	md-is-locked-open="$mdMedia('gt-xs')"
 		    	layout="column"
 		    	layout-align="start start">
-		    	<md-button>
+		    	<md-button ng-click="openUpload()">
 					<md-icon class="material-icons">file_upload</md-icon>
 		    		Upload Song
 		    	</md-button>
 
 		    	<md-button ng-click="browseFiles()">
 					<md-icon class="material-icons">memory</md-icon>
-		    		Play From Local
+		    		Add From Local
 		    	</md-button>
 
 		    	<md-button>
 					<md-icon class="material-icons">cloud_queue</md-icon>
-		    		Play From Web
+		    		Add From Web
+		    	</md-button>
+		    </md-sidenav>
+
+			<md-sidenav
+		    	flex="33"
+		    	class="md-sidenav-left"
+		    	md-component-id="fromLocal"
+		    	layout="column"
+		    	layout-align="start start">
+		    	<md-input-container>
+		    		<label> Search </label>
+		    		<input aria-label="Search">
+		    	</md-input-container>
+
+		    	<md-button ng-repeat="x in library" layout-align="start start" layout="row" layout-align="start" ng-click="addSong(x)">
+					<md-icon flex class="material-icons">queue</md-icon>
+	    			<span class="md-body-2"> {{x.title}} </span>
+	    			<span class="md-caption"> <br>{{x.artist}} </span>
 		    	</md-button>
 
-			</md-sidenav>
+		    </md-sidenav>
+
+			<md-sidenav
+		    	flex="33"
+		    	class="md-sidenav-left"
+		    	md-component-id="upload"
+		    	layout="column"
+		    	layout-align="start start">
+
+		    	<input type="file" file-model="fileToUpload">
+		    	<md-button ng-click= "uploadFile()">Upload File</md-button>
+		    	
+		    </md-sidenav>
+
+
 
 		    <md-content ng-controller="Queue" layout="column" flex>
 

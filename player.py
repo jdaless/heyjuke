@@ -49,9 +49,12 @@ def socketListener():
 	while(True):
 		connection, sender = s.accept()
 		try:
-			data = connection.recv(128)
-			print(sender)
-			print(data)
+			data = connection.recv(256)
+			data = data.decode("utf-8")
+			if("add=" in data):
+				start = data.index("add=")
+				print(sender[0] + " added: " + data[(start+4):])
+				model.queue.insert(0, ["file", data[(start+4):]])
 			if data:
 				connection.sendall(
 					bytes(
@@ -83,5 +86,5 @@ while(True):
 		print(os.listdir(dirName + "\\music"))
 	if(x=="spotify"):
 		model.queue.insert(0, ["spotify", "https://play.spotify.com/track/6t1FIJlZWTQfIZhsGjaulM"])
-	if(x.startswith("add")):
-		model.queue.insert(0, ["file", x[4:]])
+	#if(x.startswith("add")):
+	#	model.queue.insert(0, ["file", x[4:]])
