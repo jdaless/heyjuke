@@ -53,7 +53,7 @@ def socketListener():
 			data = data.decode("utf-8")
 			if("add=" in data):
 				start = data.index("add=")
-				print(sender[0] + " added: " + data[(start+4):])
+				print("Someone added: " + data[(start+4):])
 				model.queue.insert(0, ["file", data[(start+4):]])
 			if data:
 				connection.sendall(

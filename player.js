@@ -20,7 +20,7 @@ app.controller('Queue', function($scope, $rootScope, $http, $interval) {
 	refreshQueue();
 	$interval(function() {
 		$time = new Date().getTime();
-		if($queueRefreshed){
+		if($queueRefreshed && $scope.nowPlaying){
 			$scope.progress = ($time - ($scope.started*1000)) / ($scope.nowPlaying.length*10);
 		}
 		else{
@@ -72,14 +72,34 @@ app.controller('AddMenu', function($scope, $rootScope, $http, $mdSidenav){
 	    });
 	};
 	$scope.uploadFile = function(){
+		var ErrorEnum = {Filetype: 1, Size: 2, Exists: 4, SaveFail: 8}
 		var file = $scope.fileToUpload;
 		var fd = new FormData();
 		fd.append("file", file);
+		$scope.uploading = true;
         $http.post("api/upload.php", fd, {
     		transformRequest: angular.identity,
     		headers: {'Content-Type': undefined}
-		}).then(function(responde){
-			$mdSidenav('upload').close();
+		}).then(function(response){
+			$scope.uploading = false;
+			if(response.data == 0){
+				$scope.message = "Upload Successful";
+			}
+			else{
+				$scope.message = "Upload Failed: \n";
+			}
+			if(response.data & ErrorEnum.Filetype){
+				$scope.message = $scope.message + "Please use .mp3 format\n";
+			}
+			if(response.data & ErrorEnum.Size){
+				$scope.message = $scope.message + "File too large\n";
+			}
+			if(response.data & ErrorEnum.Exists){
+				$scope.message = $scope.message + "That file is already in the library\n";
+			}
+			if(response.data & ErrorEnum.SaveFail){
+				$scope.message = $scope.message + "Unknown error, file failed to save\n";
+			}
 		});
 	};
 });

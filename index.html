@@ -58,11 +58,7 @@
 		    		<input aria-label="Search">
 		    	</md-input-container>
 
-		    	<md-button ng-repeat="x in library" layout-align="start start" layout="row" layout-align="start" ng-click="addSong(x)">
-					<md-icon flex class="material-icons">queue</md-icon>
-	    			<span class="md-body-2"> {{x.title}} </span>
-	    			<span class="md-caption"> <br>{{x.artist}} </span>
-		    	</md-button>
+		    	<ng-include src="'songButtonPartial.html'" ng-repeat="x in library" flex></ng-include>
 
 		    </md-sidenav>
 
@@ -73,9 +69,16 @@
 		    	layout="column"
 		    	layout-align="start start">
 
-		    	<input type="file" file-model="fileToUpload">
-		    	<md-button ng-click= "uploadFile()">Upload File</md-button>
-		    	
+		    	<input type="file" file-model="fileToUpload" layout-margin>
+		    	<span layout="row">
+			    	<md-button layout-margin class="md-raised" ng-click= "uploadFile()">Upload File</md-button>
+			    	<md-progress-circular ng-if="uploading" md-mode="indeterminate"></md-progress-circular>
+			    </span>
+
+			    <span layout-margin>
+				    {{message}}
+				</span>
+				
 		    </md-sidenav>
 
 
