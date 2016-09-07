@@ -31,18 +31,18 @@
 		    	md-is-locked-open="$mdMedia('gt-xs')"
 		    	layout="column"
 		    	layout-align="start start">
-		    	<md-button ng-click="openUpload()">
-					<md-icon class="material-icons">file_upload</md-icon>
+		    	<md-button layout-margin ng-click="openUpload()">
+					<md-icon class="material-icons md-primary md-hue-1">file_upload</md-icon>
 		    		Upload Song
 		    	</md-button>
 
-		    	<md-button ng-click="browseFiles()">
-					<md-icon class="material-icons">memory</md-icon>
+		    	<md-button layout-margin ng-click="browseFiles()">
+					<md-icon class="material-icons md-primary md-hue-1">memory</md-icon>
 		    		Add From Local
 		    	</md-button>
 
-		    	<md-button>
-					<md-icon class="material-icons">cloud_queue</md-icon>
+		    	<md-button layout-margin>
+					<md-icon class="material-icons md-primary md-hue-1">cloud_queue</md-icon>
 		    		Add From Web
 		    	</md-button>
 		    </md-sidenav>
@@ -53,13 +53,46 @@
 		    	md-component-id="fromLocal"
 		    	layout="column"
 		    	layout-align="start start">
-		    	<md-input-container>
-		    		<label> Search </label>
-		    		<input aria-label="Search">
-		    	</md-input-container>
+		    	<div layout="row" layout-align="center-center">
+			    	<md-menu>
+						<md-button class="md-icon-button" ng-click="openQueryMenu($mdOpenMenu, $event)">
+							<md-icon class="material-icons md-primary md-hue-2">{{currentSearch}}</md-icon>
+						</md-button>
+			    		<md-menu-content>
+			    			<md-menu-item>
+			    				<md-button ng-click="currentSearch='queue_music';">
+									<md-icon class="material-icons">queue_music</md-icon>
+									Track Name
+								</md-button>
+							</md-menu-item>
+			    			<md-menu-item>
+			    				<md-button ng-click="currentSearch='account_circle'">
+									<md-icon class="material-icons">account_circle</md-icon>
+									Artist
+								</md-button>
+							</md-menu-item>
+			    			<md-menu-item>
+			    				<md-button ng-click="currentSearch='album'">
+									<md-icon class="material-icons">album</md-icon>
+									Album
+								</md-button>
+							</md-menu-item>
+						</md-menu-content>
+					</md-menu>
 
-		    	<ng-include src="'songButtonPartial.html'" ng-repeat="x in library" flex></ng-include>
+			    	<md-input-container id="query-search">
+			    		<label> Search </label>
+			    		<input aria-label="Search">
+			    	</md-input-container>
 
+					<md-button class="md-icon-button" ng-click="">
+						<md-icon class="material-icons md-primary md-hue-2">search</md-icon>
+					</md-button>
+			    </div>
+
+			    <div class="md-hue-1" layout="column">
+		    		<ng-include src="'songButtonPartial.html'" ng-repeat="x in library" flex></ng-include>
+				</div>
 		    </md-sidenav>
 
 			<md-sidenav
@@ -71,23 +104,22 @@
 
 		    	<input type="file" file-model="fileToUpload" layout-margin>
 		    	<span layout="row">
-			    	<md-button layout-margin class="md-raised" ng-click= "uploadFile()">Upload File</md-button>
+			    	<md-button layout-margin ng-disabled="uploading" class="md-raised" ng-click= "uploadFile()">Upload File</md-button>
 			    	<md-progress-circular ng-if="uploading" md-mode="indeterminate"></md-progress-circular>
 			    </span>
 
 			    <span layout-margin>
 				    {{message}}
 				</span>
-				
 		    </md-sidenav>
 
 
 
-		    <md-content ng-controller="Queue" layout="column" flex>
+		    <md-content ng-controller="Queue" layout="column" class="md-hue-1" flex>
 
 				<ng-include src="'songPartial.html'" ng-repeat="x in [nowPlaying]"></ng-include>
 
-				<md-content flex class="main-content" layout="column">
+				<md-content flex class="main-content md-hue-1" layout="column">
 					
 					<ng-include src="'songPartial.html'" ng-repeat="x in queue"></ng-include>
 

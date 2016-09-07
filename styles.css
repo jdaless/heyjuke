@@ -1,6 +1,8 @@
 .card-media {
-  background-color: #999999; }
-
+  background-color: #c5cae9; }
+#query-search{
+	margin-bottom: -2px !important;
+}
 md-card{
 	display: block;
 }

@@ -64,6 +64,11 @@ app.controller('AddMenu', function($scope, $rootScope, $http, $mdSidenav){
 		$mdSidenav('add').close();
 		$mdSidenav('upload').open();
 	};
+	$scope.currentSearch = 'queue_music';
+	$scope.openQueryMenu= function($mdOpenMenu, ev) {
+      originatorEv = ev;
+      $mdOpenMenu(ev);
+    };
 	$scope.addSong = function(song){
 		id = $scope.library.indexOf(song);
 		$http.get("api/library.php?id=" + id).then(function(response) {
